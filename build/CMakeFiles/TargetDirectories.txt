@@ -1,0 +1,3 @@
+/home/dd/Ubu20/ppdbscan/build/CMakeFiles/rebuild_cache.dir
+/home/dd/Ubu20/ppdbscan/build/CMakeFiles/edit_cache.dir
+/home/dd/Ubu20/ppdbscan/build/CMakeFiles/ppdbscan.dir
