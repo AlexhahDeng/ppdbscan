@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="ppdbscan"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\EzPC\;CMake Files\..\EzPC\SCI\;CMake Files\..\EzPC\SCI\build\;CMake Files\..\EzPC\SCI\build\install\;CMake Files\..\EzPC\SCI\build\install\lib\;CMake Files\..\EzPC\SCI\build\install\lib\cmake\;CMake Files\..\EzPC\SCI\build\install\lib\cmake\SCI\;CMake Files\..\EzPC\SCI\build\lib\;CMake Files\..\EzPC\SCI\build\lib\cmake\;CMake Files\..\EzPC\SCI\build\lib\cmake\SEAL\;CMake Files\..\EzPC\SCI\extern\;CMake Files\..\EzPC\SCI\extern\eigen\;CMake Files\..\EzPC\SCI\extern\eigen\build\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dd/Ubu20/ppdbscan/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/dd/Ubu20/ppdbscan/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/dd/Ubu20/ppdbscan/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ppdbscan">
+				<Option output="/home/dd/Ubu20/ppdbscan/cmake-build-debug/ppdbscan" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dd/Ubu20/ppdbscan/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSCI_OT=1"/>
+					<Add option="-DSCI_HE=1"/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/build/install/include"/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/build/install/."/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/extern/eigen"/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/build/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 ppdbscan"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ppdbscan/fast">
+				<Option output="/home/dd/Ubu20/ppdbscan/cmake-build-debug/ppdbscan" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dd/Ubu20/ppdbscan/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSCI_OT=1"/>
+					<Add option="-DSCI_HE=1"/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/build/install/include"/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/build/install/."/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/extern/eigen"/>
+					<Add directory="/home/dd/Ubu20/EzPC/SCI/build/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 ppdbscan/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/dd/Ubu20/ppdbscan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/cloud.cpp">
+			<Option target="ppdbscan"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/cloud.h">
+			<Option target="ppdbscan"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/func.cpp">
+			<Option target="ppdbscan"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/func.h">
+			<Option target="ppdbscan"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/main.cpp">
+			<Option target="ppdbscan"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/install/lib/cmake/SCI/FindGMP.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\install\lib\cmake\SCI\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/install/lib/cmake/SCI/SCIConfig.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\install\lib\cmake\SCI\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/install/lib/cmake/SCI/SCITargets-noconfig.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\install\lib\cmake\SCI\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/install/lib/cmake/SCI/SCITargets.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\install\lib\cmake\SCI\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/install/lib/cmake/SCI/source_of_randomness.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\install\lib\cmake\SCI\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/lib/cmake/SEAL/SEALConfig.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\lib\cmake\SEAL\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/lib/cmake/SEAL/SEALConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\lib\cmake\SEAL\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/lib/cmake/SEAL/SEALTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\lib\cmake\SEAL\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/build/lib/cmake/SEAL/SEALTargets.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\build\lib\cmake\SEAL\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/extern/eigen/build/Eigen3Config.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\extern\eigen\build\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/extern/eigen/build/Eigen3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\extern\eigen\build\"/>
+		</Unit>
+		<Unit filename="/home/dd/Ubu20/ppdbscan/../EzPC/SCI/extern/eigen/build/Eigen3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\EzPC\SCI\extern\eigen\build\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

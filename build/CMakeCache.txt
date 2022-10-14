@@ -15,24 +15,28 @@
 ########################
 
 //Path to a program.
-CMAKE_ADDR2LINE:FILEPATH=/bin/addr2line
+CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
 //Path to a program.
-CMAKE_AR:FILEPATH=/bin/ar
+CMAKE_AR:FILEPATH=/usr/bin/ar
 
-//No help, variable specified on the command line.
-CMAKE_BUILD_TYPE:STRING=Debug
+//Choose the type of build, options are: None Debug Release RelWithDebInfo
+// MinSizeRel ...
+CMAKE_BUILD_TYPE:STRING=
+
+//Enable/Disable color output during build.
+CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=/bin/c++
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_CXX_COMPILER_AR:FILEPATH=/bin/gcc-ar-9
+CMAKE_CXX_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar-9
 
 //A wrapper around 'ranlib' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/bin/gcc-ranlib-9
+CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib-9
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=
@@ -49,16 +53,16 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-8
+//C compiler
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_C_COMPILER_AR:FILEPATH=/bin/gcc-ar-8
+CMAKE_C_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar-9
 
 //A wrapper around 'ranlib' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_C_COMPILER_RANLIB:FILEPATH=/bin/gcc-ranlib-8
+CMAKE_C_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib-9
 
 //Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=
@@ -93,17 +97,17 @@ CMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=
 //Flags used by the linker during RELWITHDEBINFO builds.
 CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
-//No help, variable specified on the command line.
-CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+//Enable/Disable output of compile commands during generation.
+CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 
 //Install path prefix, prepended onto install directories.
 CMAKE_INSTALL_PREFIX:PATH=/usr/local
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=/bin/ld
+CMAKE_LINKER:FILEPATH=/usr/bin/ld
 
-//Program used to build from build.ninja files.
-CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/ninja
+//Path to a program.
+CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -126,13 +130,13 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_NM:FILEPATH=/bin/nm
+CMAKE_NM:FILEPATH=/usr/bin/nm
 
 //Path to a program.
-CMAKE_OBJCOPY:FILEPATH=/bin/objcopy
+CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 
 //Path to a program.
-CMAKE_OBJDUMP:FILEPATH=/bin/objdump
+CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -144,10 +148,10 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=ppdbscan
 
 //Path to a program.
-CMAKE_RANLIB:FILEPATH=/bin/ranlib
+CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
 
 //Path to a program.
-CMAKE_READELF:FILEPATH=/bin/readelf
+CMAKE_READELF:FILEPATH=/usr/bin/readelf
 
 //Flags used by the linker during the creation of shared libraries
 // during all build types.
@@ -197,7 +201,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_STRIP:FILEPATH=/bin/strip
+CMAKE_STRIP:FILEPATH=/usr/bin/strip
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -239,25 +243,19 @@ OpenMP_C_FLAGS:STRING=-fopenmp
 OpenMP_C_LIB_NAMES:STRING=gomp;pthread
 
 //Path to the gomp library for OpenMP
-OpenMP_gomp_LIBRARY:FILEPATH=/usr/lib/gcc/x86_64-linux-gnu/8/libgomp.so
+OpenMP_gomp_LIBRARY:FILEPATH=/usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so
 
 //Path to the pthread library for OpenMP
 OpenMP_pthread_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.so
 
 //pkg-config executable
-PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
 
 //The directory containing a CMake configuration file for SEAL.
 SEAL_DIR:PATH=/home/dd/Ubu20/EzPC/SCI/build/lib/cmake/SEAL
 
 //Option description
 USE_RANDOM_DEVICE:BOOL=OFF
-
-//Path to a library.
-pkgcfg_lib__OPENSSL_crypto:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
-
-//Path to a library.
-pkgcfg_lib__OPENSSL_ssl:FILEPATH=/usr/lib/x86_64-linux-gnu/libssl.so
 
 //Value Computed by CMake
 ppdbscan_BINARY_DIR:STATIC=/home/dd/Ubu20/ppdbscan/build
@@ -282,6 +280,8 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=16
 //Patch version of cmake used to create the current loaded cache
 CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
+//ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
+CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/usr/bin/cmake
 //Path to cpack program executable.
@@ -339,7 +339,7 @@ CMAKE_EXPORT_COMPILE_COMMANDS-ADVANCED:INTERNAL=1
 //Name of external makefile project generator.
 CMAKE_EXTRA_GENERATOR:INTERNAL=
 //Name of generator.
-CMAKE_GENERATOR:INTERNAL=Ninja
+CMAKE_GENERATOR:INTERNAL=Unix Makefiles
 //Generator instance identifier.
 CMAKE_GENERATOR_INSTANCE:INTERNAL=
 //Name of generator platform.
@@ -424,9 +424,9 @@ FIND_PACKAGE_MESSAGE_DETAILS_GMP:INTERNAL=[/usr/include/x86_64-linux-gnu][/usr/l
 //Details about finding OpenMP
 FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v4.5()]
 //Details about finding OpenMP_C
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/8/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][v4.5()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][v4.5()]
 //Details about finding OpenMP_CXX
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/8/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][v4.5()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][v4.5()]
 //Details about finding OpenSSL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenSSL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcrypto.so][/usr/include][c ][v1.1.1f()]
 //Details about finding Threads
@@ -476,43 +476,23 @@ THREADS_HAVE_PTHREAD_ARG:INTERNAL=TRUE
 _OPENSSL_CFLAGS:INTERNAL=
 _OPENSSL_CFLAGS_I:INTERNAL=
 _OPENSSL_CFLAGS_OTHER:INTERNAL=
-_OPENSSL_FOUND:INTERNAL=1
-_OPENSSL_INCLUDEDIR:INTERNAL=/usr/include
-_OPENSSL_INCLUDE_DIRS:INTERNAL=
-_OPENSSL_LDFLAGS:INTERNAL=-lssl;-lcrypto
-_OPENSSL_LDFLAGS_OTHER:INTERNAL=
-_OPENSSL_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
-_OPENSSL_LIBRARIES:INTERNAL=ssl;crypto
-_OPENSSL_LIBRARY_DIRS:INTERNAL=
+_OPENSSL_FOUND:INTERNAL=
+_OPENSSL_INCLUDEDIR:INTERNAL=
+_OPENSSL_LIBDIR:INTERNAL=
 _OPENSSL_LIBS:INTERNAL=
 _OPENSSL_LIBS_L:INTERNAL=
 _OPENSSL_LIBS_OTHER:INTERNAL=
 _OPENSSL_LIBS_PATHS:INTERNAL=
-_OPENSSL_MODULE_NAME:INTERNAL=openssl
-_OPENSSL_PREFIX:INTERNAL=/usr
+_OPENSSL_MODULE_NAME:INTERNAL=
+_OPENSSL_PREFIX:INTERNAL=
 _OPENSSL_STATIC_CFLAGS:INTERNAL=
 _OPENSSL_STATIC_CFLAGS_I:INTERNAL=
 _OPENSSL_STATIC_CFLAGS_OTHER:INTERNAL=
-_OPENSSL_STATIC_INCLUDE_DIRS:INTERNAL=
-_OPENSSL_STATIC_LDFLAGS:INTERNAL=-lssl;-lcrypto;-ldl;-pthread
-_OPENSSL_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread
 _OPENSSL_STATIC_LIBDIR:INTERNAL=
-_OPENSSL_STATIC_LIBRARIES:INTERNAL=ssl;crypto;dl
-_OPENSSL_STATIC_LIBRARY_DIRS:INTERNAL=
 _OPENSSL_STATIC_LIBS:INTERNAL=
 _OPENSSL_STATIC_LIBS_L:INTERNAL=
 _OPENSSL_STATIC_LIBS_OTHER:INTERNAL=
 _OPENSSL_STATIC_LIBS_PATHS:INTERNAL=
-_OPENSSL_VERSION:INTERNAL=1.1.1f
-_OPENSSL_openssl_INCLUDEDIR:INTERNAL=
-_OPENSSL_openssl_LIBDIR:INTERNAL=
-_OPENSSL_openssl_PREFIX:INTERNAL=
-_OPENSSL_openssl_VERSION:INTERNAL=
-__pkg_config_arguments__OPENSSL:INTERNAL=QUIET;openssl
+_OPENSSL_VERSION:INTERNAL=
 __pkg_config_checked__OPENSSL:INTERNAL=1
-//ADVANCED property for variable: pkgcfg_lib__OPENSSL_crypto
-pkgcfg_lib__OPENSSL_crypto-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: pkgcfg_lib__OPENSSL_ssl
-pkgcfg_lib__OPENSSL_ssl-ADVANCED:INTERNAL=1
-prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
 
