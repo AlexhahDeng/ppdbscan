@@ -377,10 +377,18 @@ time.h
 -
 climits
 -
+list
+-
+map
+-
 BuildingBlocks/aux-protocols.h
 /home/dd/Ubu20/ppdbscan/BuildingBlocks/aux-protocols.h
 utils/emp-tool.h
 /home/dd/Ubu20/ppdbscan/utils/emp-tool.h
+
+/home/dd/Ubu20/ppdbscan/func.cpp
+func.h
+/home/dd/Ubu20/ppdbscan/func.h
 
 /home/dd/Ubu20/ppdbscan/func.h
 iostream
@@ -405,12 +413,4 @@ time.h
 -
 cloud.h
 /home/dd/Ubu20/ppdbscan/cloud.h
-
-/home/dd/Ubu20/ppdbscan/main.cpp
-iostream
--
-time.h
--
-func.h
-/home/dd/Ubu20/ppdbscan/func.h
 

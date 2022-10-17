@@ -8,6 +8,8 @@
 #include <math.h>
 #include <time.h>
 #include <climits>
+#include <list>
+#include <map>
 
 #include "BuildingBlocks/aux-protocols.h"
 #include "utils/emp-tool.h"
@@ -15,12 +17,21 @@
 using namespace std;
 using namespace sci;
 
-const long long RING = pow(2, 32); // 秘密共享环的大小
+const long long RING = pow(2, 48); // 秘密共享环的大小
 
 struct dataset {
   string filename;
   long long eps;
   int minPts;
+};
+
+class pairInfo {
+public:
+  int cluid1;
+  int cluid2;
+  int isConnected;
+
+  pairInfo(int c1, int c2, int isc):cluid1(c1), cluid2(c2), isConnected(isc){}
 };
 
 class point
@@ -46,6 +57,7 @@ public:
     int minpts;                     // params
     int dim;                        // dimension of data
     long long eps;                  // params
+    list<pairInfo*>resPairs;
     vector<vector<int>> beaverlist; // multiplication triple sets
     vector<vector<int>> distinfo;   // whether two point is close to each other
 
@@ -56,6 +68,10 @@ public:
 
     vector<long long> calculateEF(long long x, long long y, int beaverIdx);
     long long calculateXmulY(long long e, long long f, int bIdx);
+
+    vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
+    vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+
 };
 
 class cloudOne: public cloud
@@ -64,6 +80,9 @@ public:
   cloudOne(){}
   long long calculateXmulY(long long e, long long f, int bIdx);
 
+    vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
+        vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+
 
 };
 
@@ -71,4 +90,9 @@ class cloudTwo: public cloud {
 public:
   cloudTwo(){}
   long long calculateXmulY(long long e, long long f, int bIdx);
+
+      vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
+          vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+
+
 };
