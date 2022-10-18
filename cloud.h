@@ -10,18 +10,22 @@
 #include <climits>
 #include <list>
 #include <map>
+#include <limits>
 
-#include "BuildingBlocks/aux-protocols.h"
-#include "utils/emp-tool.h"
+#include <boost/multiprecision/cpp_int.hpp>
+
+// #include "BuildingBlocks/aux-protocols.h"
+// #include "utils/emp-tool.h"
 
 using namespace std;
-using namespace sci;
+using namespace boost::multiprecision;
+// using namespace sci;
 
-const long long RING = pow(2, 48); // 秘密共享环的大小
+const cpp_int RING = (long long int)(pow(2, 48)); // 秘密共享环的大小
 
 struct dataset {
   string filename;
-  long long eps;
+  cpp_int eps;
   int minPts;
 };
 
@@ -37,14 +41,14 @@ public:
 class point
 {
 public:
-    vector<long long> data; // enc: secret share data
+    vector<cpp_int> data; // enc: secret share data
     int cluIdx;             // enc: cluster index
     int type = 0;               // plx: 类型，如果有的话
     int isCorePoint = 0;        // enc: whether is a core point
     int isMark = 0;             // enc: whether it is marked
     int resCluIdx = 0;          // enc: dfs以后获取的结果
 
-    point(vector<long long> tdata, int tcluIdx) : data(tdata), cluIdx(tcluIdx)
+    point(vector<cpp_int> tdata, int tcluIdx) : data(tdata), cluIdx(tcluIdx)
     {
 
     }
@@ -56,21 +60,21 @@ public:
     vector<point*> plist;          // point list
     int minpts;                     // params
     int dim;                        // dimension of data
-    long long eps;                  // params
+    cpp_int eps;                  // params
     list<pairInfo*>resPairs;
     vector<vector<int>> beaverlist; // multiplication triple sets
     vector<vector<int>> distinfo;   // whether two point is close to each other
 
-    cloud(vector<point*> tplist, int tminpts, long long teps) : plist(tplist), minpts(tminpts), eps(teps)
+    cloud(vector<point*> tplist, int tminpts, cpp_int teps) : plist(tplist), minpts(tminpts), eps(teps)
     {
     }
     cloud() {}
 
-    vector<long long> calculateEF(long long x, long long y, int beaverIdx);
-    long long calculateXmulY(long long e, long long f, int bIdx);
+    vector<cpp_int> calculateEF(cpp_int x, cpp_int y, int beaverIdx);
+    cpp_int calculateXmulY(cpp_int e, cpp_int f, int bIdx);
 
-    vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
-    vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+    vector<vector<cpp_int>> calculateEFPairs(vector<cpp_int>&xs, vector<cpp_int>&ys, int bIdx);
+    vector<cpp_int> calculateXmulYPairs(vector<vector<cpp_int>> &efPairs, int bIdx);
 
 };
 
@@ -78,10 +82,10 @@ class cloudOne: public cloud
 {
 public:
   cloudOne(){}
-  long long calculateXmulY(long long e, long long f, int bIdx);
+  cpp_int calculateXmulY(cpp_int e, cpp_int f, int bIdx);
 
-    vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
-        vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+    vector<vector<cpp_int>> calculateEFPairs(vector<cpp_int>&xs, vector<cpp_int>&ys, int bIdx);
+        vector<cpp_int> calculateXmulYPairs(vector<vector<cpp_int>> &efPairs, int bIdx);
 
 
 };
@@ -89,10 +93,10 @@ public:
 class cloudTwo: public cloud {
 public:
   cloudTwo(){}
-  long long calculateXmulY(long long e, long long f, int bIdx);
+  cpp_int calculateXmulY(cpp_int e, cpp_int f, int bIdx);
 
-      vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
-          vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+      vector<vector<cpp_int>> calculateEFPairs(vector<cpp_int>&xs, vector<cpp_int>&ys, int bIdx);
+          vector<cpp_int> calculateXmulYPairs(vector<vector<cpp_int>> &efPairs, int bIdx);
 
 
 };

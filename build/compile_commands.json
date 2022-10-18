@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/dd/Ubu20/ppdbscan/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DSCI_HE=1 -DSCI_OT=1 -isystem /home/dd/Ubu20/EzPC/SCI/build/install/include -isystem /home/dd/Ubu20/EzPC/SCI/build/install/. -isystem /home/dd/Ubu20/EzPC/SCI/extern/eigen -isystem /home/dd/Ubu20/EzPC/SCI/build/include   -O0 -Wall -g2 -ggdb   -w -pthread -maes -msse4.1 -mavx -mavx2 -faligned-new -std=c++17 -O3 -mrdseed -fopenmp -std=gnu++17 -o CMakeFiles/ppdbscan.dir/main.cpp.o -c /home/dd/Ubu20/ppdbscan/main.cpp",
+  "file": "/home/dd/Ubu20/ppdbscan/main.cpp"
+},
+{
+  "directory": "/home/dd/Ubu20/ppdbscan/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DSCI_HE=1 -DSCI_OT=1 -isystem /home/dd/Ubu20/EzPC/SCI/build/install/include -isystem /home/dd/Ubu20/EzPC/SCI/build/install/. -isystem /home/dd/Ubu20/EzPC/SCI/extern/eigen -isystem /home/dd/Ubu20/EzPC/SCI/build/include   -O0 -Wall -g2 -ggdb   -w -pthread -maes -msse4.1 -mavx -mavx2 -faligned-new -std=c++17 -O3 -mrdseed -fopenmp -std=gnu++17 -o CMakeFiles/ppdbscan.dir/func.cpp.o -c /home/dd/Ubu20/ppdbscan/func.cpp",
+  "file": "/home/dd/Ubu20/ppdbscan/func.cpp"
+},
+{
+  "directory": "/home/dd/Ubu20/ppdbscan/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DSCI_HE=1 -DSCI_OT=1 -isystem /home/dd/Ubu20/EzPC/SCI/build/install/include -isystem /home/dd/Ubu20/EzPC/SCI/build/install/. -isystem /home/dd/Ubu20/EzPC/SCI/extern/eigen -isystem /home/dd/Ubu20/EzPC/SCI/build/include   -O0 -Wall -g2 -ggdb   -w -pthread -maes -msse4.1 -mavx -mavx2 -faligned-new -std=c++17 -O3 -mrdseed -fopenmp -std=gnu++17 -o CMakeFiles/ppdbscan.dir/cloud.cpp.o -c /home/dd/Ubu20/ppdbscan/cloud.cpp",
+  "file": "/home/dd/Ubu20/ppdbscan/cloud.cpp"
+}
+]
