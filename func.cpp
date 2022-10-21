@@ -7,12 +7,6 @@
  * @param s2 分割数据2
  */
 void secretShareLL(long long data, long long &s1, long long &s2) {
-    if(data < 0 || data >= RING){
-      cout<<"error: invalid sharing value"<<endl;
-      s1 = data;
-      s2 = 0;
-      return;
-    }
     long long l = 0, r = 50;
     long long rnd = rand();
     s1 = rnd % (r-l);
@@ -20,12 +14,6 @@ void secretShareLL(long long data, long long &s1, long long &s2) {
 }
 
 void secretShareInt(long long data, int &d1, int &d2) {
-    if(data < 0 || data >= RING){
-      cout<<"error: invalid sharing value"<<endl;
-      d1 = data;
-      d2 = 0;
-      return;
-    }
     long long l = 0, r = 50;
     long long rnd = rand();
     d1 = rnd % (r-l);

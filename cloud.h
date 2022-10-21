@@ -11,11 +11,17 @@
 #include <list>
 #include <map>
 
-#include "BuildingBlocks/aux-protocols.h"
-#include "utils/emp-tool.h"
+// #include "BuildingBlocks/aux-protocols.h"
+// #include "utils/emp-tool.h"
+
+#include <limits>
+
+#include <boost/multiprecision/cpp_int.hpp>
+
+using namespace boost::multiprecision;
 
 using namespace std;
-using namespace sci;
+// using namespace sci;
 
 const long long RING = pow(2, 48); // 秘密共享环的大小
 

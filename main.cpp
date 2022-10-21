@@ -31,10 +31,10 @@ vector<long long> mulAllVecElem(cloudOne *c1, cloudTwo *c2,
   while (len != 1)
   {
     vector<long long> tmp1, tmp2;
-    for (int i = 0; i < len / 2; ++i)
+    for (int i = 0; i < (len / 2); ++i)
     {
-      vector<long long> ef1 = c1->calculateEF(v1[i], v1[2 * i + 1], 0);
-      vector<long long> ef2 = c2->calculateEF(v2[i], v2[2 * i + 1], 0);
+      vector<long long> ef1 = c1->calculateEF(v1[2*i], v1[2 * i + 1], 0);
+      vector<long long> ef2 = c2->calculateEF(v2[2*i], v2[2 * i + 1], 0);
       for (int j = 0; j < ef1.size(); ++j)
         ef1[j] += ef2[j];
       long long val1 = c1->calculateXmulY(ef1[0], ef1[1], 0);
@@ -43,7 +43,7 @@ vector<long long> mulAllVecElem(cloudOne *c1, cloudTwo *c2,
       tmp1.push_back(val1);
       tmp2.push_back(val2);
     }
-    if (len % 2)
+    if ((len%2)==1)
     {
       tmp1.push_back(v1.back());
       tmp2.push_back(v2.back());
@@ -52,7 +52,7 @@ vector<long long> mulAllVecElem(cloudOne *c1, cloudTwo *c2,
     v2 = tmp2;
     len = v1.size();
   }
-  return vector<long long>{v1.front(), v2.front()};
+  return vector<long long>{v1[0], v2[0]};
 }
 
 /**
@@ -84,8 +84,15 @@ vector<point *> initialization(dataset dtset, cloudOne *c1, cloudTwo *c2)
 
   for (int i = 0; i < num; ++i)
   {
-    for (int j = i + 1; j < num; ++j)
+    int neiCnt1, neiCnt2;
+    secretShareInt(0, neiCnt1, neiCnt2);
+    for (int j = 0; j < num; ++j)
     {
+      if(j <= i){
+        neiCnt1 += c1->distinfo[i][j];
+        neiCnt2 += c2->distinfo[i][j];
+        continue;
+      }
       long long d1 = 0, d2 = 0;
       for (int k = 0; k < c1->dim; ++k)
       {
@@ -103,7 +110,11 @@ vector<point *> initialization(dataset dtset, cloudOne *c1, cloudTwo *c2)
       }
       c1->distinfo[i][j] = plainCompare(c1->eps + c2->eps, d1 + d2);
       c1->distinfo[j][i] = c1->distinfo[i][j];
+      neiCnt1 += c1->distinfo[i][j];
+      neiCnt2 += c2->distinfo[i][j];
     }
+    int res = plainCompare(neiCnt1+neiCnt2, c1->minpts+c2->minpts);
+    c1->plist[i]->isCorePoint = res;
   }
 
   return plnPointList;
@@ -126,6 +137,7 @@ void clustering(cloudOne *c1, cloudTwo *c2)
     secretShareInt(1, tmp1, tmp2);           // 秘密共享1
     secretShareInt(0, tmpCluId1, tmpCluId2); // 秘密共享0
 
+
     for (int j = 0; j < num; ++j)
     {
       if (i == j)
@@ -139,8 +151,8 @@ void clustering(cloudOne *c1, cloudTwo *c2)
                             c2->distinfo[i][j]});
 
       // tmpCluId = tmpCluId + tmp * j.isMark * j.CluId * u[i,j]
-      tmpCluId1 += res[0];
-      tmpCluId2 += res[1];
+      tmpCluId1 = res[0] + res[1];
+      tmpCluId2 = 0;
 
       // tmp * j.isMark * u[i,j]
       res = mulAllVecElem(
@@ -189,8 +201,16 @@ void clustering(cloudOne *c1, cloudTwo *c2)
     c1->plist[i]->cluIdx += res[0];
     c2->plist[i]->cluIdx += res[1];
 
+//    // FIXME delete later
+//    c1->plist[i]->cluIdx += c2->plist[i]->cluIdx;
+//    c2->plist[i]->cluIdx = 0;
+
     for (int j = 0; j < num; ++j)
     {
+      // debug only
+//      if(i==213 && j == 209){
+//        cout<<"?"<<endl;
+//      }
       if (i == j)
         continue;
 
@@ -208,6 +228,10 @@ void clustering(cloudOne *c1, cloudTwo *c2)
       c1->plist[j]->cluIdx += res[0];
       c2->plist[j]->cluIdx += res[1];
 
+//      // FIXME for debug, delete later
+//      c1->plist[j]->cluIdx += c2->plist[j]->cluIdx;
+//      c2->plist[j]->cluIdx = 0;
+
       // 更新j的标记
       // u[i,j]*i.isMark
       res = mulAllVecElem(
@@ -217,7 +241,11 @@ void clustering(cloudOne *c1, cloudTwo *c2)
       tmp1 = plainCompare(
           res[0] + res[1] + c1->plist[j]->isMark + c2->plist[j]->isMark, 0);
 
+      c1->plist[j]->isMark = tmp1;
+      c2->plist[j]->isMark = 0;
+
       // 标记是否相连的信息
+      // i.isMark * j.isMark * u[i,j]
       res = mulAllVecElem(
           c1, c2,
           vector<long long>{c1->plist[i]->isMark, c1->plist[j]->isMark,
@@ -254,6 +282,7 @@ map<int, int> getResult(cloudOne *c1, cloudTwo *c2)
     int cluid2 = (*p1)->cluid2 + (*p2)->cluid2;
     int isConn = (*p1)->isConnected + (*p2)->isConnected;
     matrix[cluid1][cluid2] += isConn;
+    matrix[cluid2][cluid1] += isConn;
   }
 
   cout << "开始查询连通图" << endl;
@@ -280,8 +309,9 @@ int main()
   int num = c1->plist.size();
   for (int i = 0; i < num; ++i)
   {
-    if (mymap[pointList[i]->cluIdx] != 0)pointList[i]->resCluIdx = mymap[pointList[i]->cluIdx];
-    else pointList[i]->resCluIdx = pointList[i]->cluIdx;
+    int cluidx = c1->plist[i]->cluIdx+c2->plist[i]->cluIdx;
+    if (mymap[cluidx] != 0)pointList[i]->resCluIdx = mymap[cluidx];
+    else pointList[i]->resCluIdx = cluidx;
 
   }
   writeCsv(pointList);
