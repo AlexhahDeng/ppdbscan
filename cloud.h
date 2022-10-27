@@ -5,14 +5,15 @@
 #include <random>
 #include <sstream>
 #include <fstream>
-#include <math.h>
-#include <time.h>
+#include <cmath>
+#include <ctime>
 #include <climits>
 #include <list>
 #include <map>
+#include <algorithm>
 
-// #include "BuildingBlocks/aux-protocols.h"
-// #include "utils/emp-tool.h"
+ #include "BuildingBlocks/aux-protocols.h"
+ #include "utils/emp-tool.h"
 
 #include <limits>
 
@@ -21,7 +22,7 @@
 using namespace boost::multiprecision;
 
 using namespace std;
-// using namespace sci;
+using namespace sci;
 
 const long long RING = pow(2, 48); // 秘密共享环的大小
 
@@ -78,6 +79,8 @@ public:
     vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
     vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
 
+    vector<vector<int>> calculate_v0v1_ef(vector<vector<int>> vec);
+
 };
 
 class cloudOne: public cloud
@@ -88,6 +91,8 @@ public:
 
     vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
         vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
+
+        vector<int> calculate_v0v1_final(vector<vector<int>> ef);
 
 
 };
@@ -100,5 +105,5 @@ public:
       vector<vector<long long>> calculateEFPairs(vector<long long>&xs, vector<long long>&ys, int bIdx);
           vector<long long> calculateXmulYPairs(vector<vector<long long>> &efPairs, int bIdx);
 
-
+    vector<int> calculate_v0v1_final(vector<vector<int>> ef);
 };

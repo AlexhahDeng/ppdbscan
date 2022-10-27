@@ -77,7 +77,11 @@ vector<point*> data2Point(vector<vector<long long>>&dataList, vector<point*>&pLi
     }
     return pointList;
 }
-
+/**
+ * @brief 生成1w个beaver 三元组
+ * @param set1
+ * @param set2
+ */
 void generateBeaverSet(vector<vector<int>>&set1, vector<vector<int>>&set2) {
   const int setNum = 10000;
   const int dataRange = 500;
@@ -151,3 +155,81 @@ void writeCsv(vector<point *> &plist) {
     outFile.close();
 }
 
+
+// if x>y, return 1
+int plainCompare(long long x, long long y)
+{
+  //  cout<<"cmp"<<" " <<x<<" "<<y<<endl;
+  if (x > y)
+    return 1;
+  return 0;
+}
+
+/**
+ * @brief 将vector内所有元素乘起来
+ *
+ * @param v1
+ * @param v2
+ * @return vector<long long> 秘密共享结果
+ */
+vector<long long> mulAllVecElem(cloudOne *c1, cloudTwo *c2,
+                                vector<long long> v1, vector<long long> v2)
+{
+  int len = v2.size();
+
+  while (len != 1)
+  {
+    vector<long long> tmp1, tmp2;
+    for (int i = 0; i < (len / 2); ++i)
+    {
+      vector<long long> ef1 = c1->calculateEF(v1[2*i], v1[2 * i + 1], 0);
+      vector<long long> ef2 = c2->calculateEF(v2[2*i], v2[2 * i + 1], 0);
+      for (int j = 0; j < ef1.size(); ++j)
+        ef1[j] += ef2[j];
+      long long val1 = c1->calculateXmulY(ef1[0], ef1[1], 0);
+      long long val2 = c2->calculateXmulY(ef1[0], ef1[1], 0);
+
+      tmp1.push_back(val1);
+      tmp2.push_back(val2);
+    }
+    if ((len%2)==1)
+    {
+      tmp1.push_back(v1.back());
+      tmp2.push_back(v2.back());
+    }
+    v1 = tmp1;
+    v2 = tmp2;
+    len = v1.size();
+  }
+  return vector<long long>{v1[0], v2[0]};
+}
+
+
+/**
+ * @brief 还原双云信息，获取结果
+ *
+ * @param c1
+ * @param c2
+ * @return map<int, int> int1: curr clu id  int2: final clu id
+ */
+map<int, int> getResult(cloudOne *c1, cloudTwo *c2)
+{
+  int num = c1->plist.size() + 1;
+  list<pairInfo *>::iterator p1, p2;
+
+  vector<vector<int>> matrix(num, vector<int>(num));
+  for (p1 = c1->resPairs.begin(), p2 = c2->resPairs.begin();
+       p1 != c1->resPairs.end() && p2 != c2->resPairs.end(); p1++, p2++)
+  {
+    int cluid1 = (*p1)->cluid1 + (*p2)->cluid1;
+    int cluid2 = (*p1)->cluid2 + (*p2)->cluid2;
+    int isConn = (*p1)->isConnected + (*p2)->isConnected;
+    matrix[cluid1][cluid2] += isConn;
+    matrix[cluid2][cluid1] += isConn;
+  }
+
+  cout << "开始查询连通图" << endl;
+  map<int, int> resMap = liantongtu(matrix);
+
+  return resMap;
+}

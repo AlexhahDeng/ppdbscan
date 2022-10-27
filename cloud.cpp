@@ -44,3 +44,40 @@ vector<long long> cloudTwo::calculateXmulYPairs(vector<vector<long long>> &efPai
   return res;
 }
 
+vector<vector<int>> cloud::calculate_v0v1_ef(vector<vector<int>> vec)
+{
+    // vec 第一行为x, 第二行为y
+    vector<vector<int>> ef(vec);
+
+    for (int i = 0; i < vec[0].size(); i++)
+    {
+        ef[0][i] = vec[0][i] - beaverlist[i][0];
+        ef[1][i] = vec[1][i] - beaverlist[i][1];
+    }
+
+    return ef;
+}
+
+vector<int> cloudOne::calculate_v0v1_final(vector<vector<int>> ef)
+{
+    vector<int> result(ef[0].size());
+
+    for (int i = 0; i < ef[0].size(); i++)
+    {
+        result[i] = ef[0][i] * beaverlist[i][1] + ef[1][i] * beaverlist[i][0] + beaverlist[i][2];
+    }
+
+    return result;
+}
+
+vector<int> cloudTwo::calculate_v0v1_final(vector<vector<int>> ef)
+{
+    vector<int> result(ef[0].size());
+
+    for (int i = 0; i < ef[0].size(); i++)
+    {
+        result[i] = ef[0][i] * ef[1][i] + ef[0][i] * beaverlist[i][1] + ef[1][i] * beaverlist[i][0] + beaverlist[i][2];
+    }
+
+    return result;
+}
