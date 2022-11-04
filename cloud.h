@@ -27,9 +27,10 @@ using namespace sci;
 const long long RING = pow(2, 48); // 秘密共享环的大小
 
 struct dataset {
-  string filename;
+  string filepath;
   long long eps;
   int minPts;
+  string filename;
 };
 
 class pairInfo {

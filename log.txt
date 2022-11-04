@@ -1,0 +1,4 @@
+hell0!
+connected
+lsun
+part one: Initialization
