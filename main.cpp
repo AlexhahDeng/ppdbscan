@@ -37,7 +37,7 @@ int bw_x = 64;
 
 clock_t starttime, endtime;
 
-dataset dataSetList[] = {{"../data/Lsun.csv", 200000000000, 4,"lsun"}, {"../data/s1.csv", 625000000000, 4,"s1"}};
+dataset dataSetList[] = {{"../data/Lsun.csv", 200000000000, 4, "lsun"}, {"../data/s1.csv", 2250000000, 50, "s1"}};
 
 /**
  * @brief 判断d1>d2?
@@ -243,7 +243,8 @@ vector<point *> initialization(dataset dtset, cloudOne *c1, cloudTwo *c2)
     c1->distinfo[i] = vector<int>(cmpres[0].begin(), cmpres[0].begin() + num);
     c2->distinfo[i] = vector<int>(cmpres[1].begin(), cmpres[1].begin() + num);
 
-    for (int p = 0; p < num; ++p)neighPointCnt[i] = neighPointCnt[i] + (cmpres[0][p] + cmpres[1][p]);
+    for (int p = 0; p < num; ++p)
+      neighPointCnt[i] = neighPointCnt[i] + (cmpres[0][p] + cmpres[1][p]);
   }
 
   vector<vector<int>> cmpres = cmp(neighPointCnt, vector<int>(num, c1->minpts + c2->minpts), c1, c2);
@@ -264,14 +265,15 @@ void clustering(cloudOne *c1, cloudTwo *c2)
 {
   int num = c1->plist.size();
   vector<long long> res, res1, res2;
-  vector<vector<int>>cmpres;
+  vector<vector<int>> cmpres;
 
   for (int i = 0; i < num; ++i)
   {
     // 更新isMark
     // i.isMark = sc(i.isMark+i.isCorePoint, 0)
     cmpres = cmp(vector<int>{c1->plist[i]->isMark + c2->plist[i]->isMark +
-                         c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint}, vector<int>{0}, c1, c2);
+                             c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint},
+                 vector<int>{0}, c1, c2);
 
     c1->plist[i]->isMark = cmpres[0].front();
     c2->plist[i]->isMark = cmpres[1].front();
@@ -283,7 +285,7 @@ void clustering(cloudOne *c1, cloudTwo *c2)
         continue;
 
       // 更新j的cluid
-      // (i.cluId-j.cluId)*(1-j.isMark)*i.isMark*u[i,j]
+      // (i.cluId-j.cluId)*(1-j.isMark)*i.iscore*u[i,j]
       res = mulAllVecElem(
           c1, c2,
           vector<long long>{c1->plist[i]->cluIdx - c1->plist[j]->cluIdx,
@@ -306,7 +308,8 @@ void clustering(cloudOne *c1, cloudTwo *c2)
     }
 
     cmpres = cmp(markInfo, vector<int>(num, 0), c1, c2);
-    for(int j=0;j<num;++j){
+    for (int j = 0; j < num; ++j)
+    {
       c1->plist[j]->isMark = cmpres[0][j] + cmpres[1][j];
       c2->plist[j]->isMark = 0;
 
@@ -329,18 +332,21 @@ void clustering(cloudOne *c1, cloudTwo *c2)
   }
 }
 
-dataset chooseDataset(string setname) {
-  for(auto dataset : dataSetList){
-    if(dataset.filename == setname){
+dataset chooseDataset(string setname)
+{
+  for (auto dataset : dataSetList)
+  {
+    if (dataset.filename == setname)
+    {
       return dataset;
     }
   }
-  cout<<"no related dataset"<<endl;
+  cout << "no related dataset" << endl;
   return {};
 }
 /**
  * @brief 负责主要过程
- * 
+ *
  */
 void alice(string &setname)
 {
@@ -353,33 +359,34 @@ void alice(string &setname)
   dataset set = chooseDataset(setname);
   vector<point *> pointList = initialization(set, c1, c2);
 
-  cout<<"part two: Clustering" <<endl;
+  cout << "part two: Clustering" << endl;
   clustering(c1, c2);
   endtime = clock();
-  double tottime = (double)(endtime-starttime)/CLOCKS_PER_SEC;
-  cout<<"total time of clustering:"<<tottime*1000<<"ms"<<endl;
-  
+  double tottime = (double)(endtime - starttime) / CLOCKS_PER_SEC;
+  cout << "total time of clustering:" << tottime * 1000 << "ms" << endl;
+
   starttime = clock();
   cout << "part three: obtain cluster res" << endl;
   map<int, int> mymap = getResult(c1, c2);
-  
+
   int num = c1->plist.size();
   for (int i = 0; i < num; ++i)
   {
-    int cluidx = c1->plist[i]->cluIdx+c2->plist[i]->cluIdx;
-    if (mymap[cluidx] != 0)pointList[i]->resCluIdx = mymap[cluidx];
-    else pointList[i]->resCluIdx = cluidx;
-
+    int cluidx = c1->plist[i]->cluIdx + c2->plist[i]->cluIdx;
+    if (mymap[cluidx] != 0)
+      pointList[i]->resCluIdx = mymap[cluidx];
+    else
+      pointList[i]->resCluIdx = cluidx;
   }
   endtime = clock();
-  tottime = (double)(endtime-starttime)/CLOCKS_PER_SEC;
-  cout<<"total time of clustering:"<<tottime*1000<<"ms"<<endl;
+  tottime = (double)(endtime - starttime) / CLOCKS_PER_SEC;
+  cout << "total time of clustering:" << tottime * 1000 << "ms" << endl;
   writeCsv(pointList);
 }
 
 /**
  * @brief 负责比较
- * 
+ *
  */
 void bob()
 {
@@ -403,7 +410,6 @@ void bob()
   delete[] bob_res;
 }
 
-
 int main(int argc, char **argv)
 {
   cout << "hell0!" << endl;
@@ -416,20 +422,20 @@ int main(int argc, char **argv)
   string dataset;
   amap.arg("r", party, "Role of party: ALICE = 1; BOB = 2");
   amap.arg("d", dataset, "choose which dataset");
-//  amap.arg("m", dimension, "dimension of dataset");
-//  amap.arg("n", data_num, "number of data");
-//  amap.arg("k", n_of_k, "number of cluster");
-//  amap.arg("i", iter_times, "iteration rounds");
-//  amap.arg("p", port, "Port Number");
-//  amap.arg("d", dim, "Size of vector");
-//  amap.arg("ip", address, "IP Address of server (ALICE)");
+  //  amap.arg("m", dimension, "dimension of dataset");
+  //  amap.arg("n", data_num, "number of data");
+  //  amap.arg("k", n_of_k, "number of cluster");
+  //  amap.arg("i", iter_times, "iteration rounds");
+  //  amap.arg("p", port, "Port Number");
+  //  amap.arg("d", dim, "Size of vector");
+  //  amap.arg("ip", address, "IP Address of server (ALICE)");
   amap.parse(argc, argv);
 
   io = new NetIO(party == 1 ? nullptr : address.c_str(), port);
   otpack = new OTPack<NetIO>(io, party);
   mill = new MillionaireProtocol<sci::NetIO>(party, io, otpack);
 
-  cout<<dataset<<endl;
+  cout << dataset << endl;
   // 开始方案
   if (party == ALICE)
     alice(dataset);
