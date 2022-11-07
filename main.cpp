@@ -27,6 +27,7 @@
 #include <list>
 #include <time.h>
 int party, port = 8200;
+int MAX_CMP_LEN = 500;
 // int dim = 1 << 16;
 int dim = 5500; // 只有在kd tree构造部分才需要取很大
 string address = "127.0.0.1";
@@ -111,6 +112,22 @@ vector<vector<int>> cmp(vector<int> d1, vector<int> d2, cloudOne *c1, cloudTwo *
   return vector<vector<int>>{r1, r2};
 }
 
+vector<vector<int>> securecmp(vector<int>d1, vector<int>d2, cloudOne *c1, cloudTwo *c2){
+  assert(d1.size() == d2.size());
+  vector<vector<int>>res;
+
+  for(int i=0;i*500<d1.size();i++){
+    int start = i*MAX_CMP_LEN;
+    int end = (i+1)*MAX_CMP_LEN<d1.size()?(i+1)*MAX_CMP_LEN:d1.size();
+    vector<vector<int>>tmp = cmp(vector<int>(d1.begin()+start, d1.begin()+end),
+        vector<int>(d2.begin()+start, d2.begin()+end),
+            c1, c2);
+    res.insert(res.end(), tmp.begin(), tmp.end());
+  }
+
+  return res;
+}
+
 /**
  * @brief 判断d1>d2?
  *
@@ -183,6 +200,22 @@ vector<vector<int>> cmpLL(vector<long long> d1, vector<long long> d2, cloudOne *
   return vector<vector<int>>{r1, r2};
 }
 
+vector<vector<int>> securecmpLL(vector<long long>d1, vector<long long>d2, cloudOne *c1, cloudTwo *c2){
+  assert(d1.size() == d2.size());
+  vector<vector<int>>res;
+
+  for(int i=0;i*500<d1.size();i++){
+    int start = i*MAX_CMP_LEN;
+    int end = (i+1)*MAX_CMP_LEN<d1.size()?(i+1)*MAX_CMP_LEN:d1.size();
+    vector<vector<int>>tmp = cmpLL(vector<long long>(d1.begin()+start, d1.begin()+end),
+        vector<long long>(d2.begin()+start, d2.begin()+end),
+            c1, c2);
+    res.insert(res.end(), tmp.begin(), tmp.end());
+  }
+
+  return res;
+}
+
 /**
  * @brief 方案初始化：1.读取数据、2.构建beaver sets、3.秘密共享中间参数、4.计算距离，构造u[i,j]
  *
@@ -239,14 +272,14 @@ vector<point *> initialization(dataset dtset, cloudOne *c1, cloudTwo *c2)
       distVec[j] = d1 + d2;
     } // j
 
-    vector<vector<int>> cmpres = cmpLL(vector<long long>(num, c1->eps + c2->eps), distVec, c1, c2);
+    vector<vector<int>> cmpres = securecmpLL(vector<long long>(num, c1->eps + c2->eps), distVec, c1, c2);
     c1->distinfo[i] = vector<int>(cmpres[0].begin(), cmpres[0].begin() + num);
     c2->distinfo[i] = vector<int>(cmpres[1].begin(), cmpres[1].begin() + num);
 
     for (int p = 0; p < num; ++p)neighPointCnt[i] = neighPointCnt[i] + (cmpres[0][p] + cmpres[1][p]);
   }
 
-  vector<vector<int>> cmpres = cmp(neighPointCnt, vector<int>(num, c1->minpts + c2->minpts), c1, c2);
+  vector<vector<int>> cmpres = securecmp(neighPointCnt, vector<int>(num, c1->minpts + c2->minpts), c1, c2);
   for (int i = 0; i < num; ++i)
   {
     c1->plist[i]->isCorePoint = cmpres[0][i] + cmpres[1][i];
@@ -270,7 +303,7 @@ void clustering(cloudOne *c1, cloudTwo *c2)
   {
     // 更新isMark
     // i.isMark = sc(i.isMark+i.isCorePoint, 0)
-    cmpres = cmp(vector<int>{c1->plist[i]->isMark + c2->plist[i]->isMark +
+    cmpres = securecmp(vector<int>{c1->plist[i]->isMark + c2->plist[i]->isMark +
                          c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint}, vector<int>{0}, c1, c2);
 
     c1->plist[i]->isMark = cmpres[0].front();
@@ -305,7 +338,7 @@ void clustering(cloudOne *c1, cloudTwo *c2)
       markInfo[j] = res[0] + res[1] + c1->plist[j]->isMark + c2->plist[j]->isMark;
     }
 
-    cmpres = cmp(markInfo, vector<int>(num, 0), c1, c2);
+    cmpres = securecmp(markInfo, vector<int>(num, 0), c1, c2);
     for(int j=0;j<num;++j){
       c1->plist[j]->isMark = cmpres[0][j] + cmpres[1][j];
       c2->plist[j]->isMark = 0;
