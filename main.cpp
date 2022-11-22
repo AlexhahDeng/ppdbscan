@@ -37,7 +37,7 @@ int bw_x = 64;
 
 clock_t starttime, endtime;
 
-dataset dataSetList[] = {{"../data/Lsun.csv", 200000000000, 4, "lsun"}, {"../data/s1.csv", 2250000000, 50, "s1"}};
+dataset dataSetList[] = {{"../data/Lsun.csv", 200000000000, 4, "lsun", 2}, {"../data/s1.csv", 2250000000, 50, "s1", 2}};
 
 /**
  * @brief 判断d1>d2?
@@ -200,7 +200,7 @@ vector<point *> initialization(dataset dtset, cloudOne *c1, cloudTwo *c2)
   c1->dim = rawData[0].size();
   c2->dim = rawData[0].size();
 
-  plnPointList = data2Point(rawData, c1->plist, c2->plist);
+  plnPointList = data2Point(rawData, c1->plist, c2->plist, dtset);
   generateBeaverSet(c1->beaverlist, c2->beaverlist);
   secretShareInt(dtset.minPts, c1->minpts, c2->minpts);
   secretShareLL(dtset.eps, c1->eps, c2->eps);

@@ -29,6 +29,8 @@ colors = np.array(
 datanp = np.asarray(datalist)
 
 noiseset = extraNoise(datalist)
+print("noist set is ", str(noiseset))
+
 # 无重复的簇标记
 label = set(datanp[:, -1])
 # 创建映射

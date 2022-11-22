@@ -31,6 +31,7 @@ struct dataset {
   long long eps;
   int minPts;
   string filename;
+  int dimension;
 };
 
 class pairInfo {
@@ -52,7 +53,7 @@ public:
     int isMark = 0;             // enc: whether it is marked
     int resCluIdx = 0;          // enc: dfs以后获取的结果
 
-    point(vector<long long> tdata, int tcluIdx) : data(tdata), cluIdx(tcluIdx)
+    point(vector<long long> tdata, int tcluIdx, int ttype = 0) : data(tdata), cluIdx(tcluIdx), type(ttype)
     {
 
     }

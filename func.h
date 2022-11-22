@@ -21,7 +21,7 @@ void secretShareInt(long long data, int &d1, int &d2);
 
 vector<vector<long long>> readData(string filename);
 
-vector<point*> data2Point(vector<vector<long long>>&dataList, vector<point*>&pList1, vector<point*>&pList2);
+vector<point*> data2Point(vector<vector<long long>>&dataList, vector<point*>&pList1, vector<point*>&pList2, dataset &dt);
 
 void generateBeaverSet(vector<vector<int>>&set1, vector<vector<int>>&set2);
 

@@ -22,7 +22,7 @@ void secretShareInt(long long data, int &d1, int &d2) {
 /**
  *
  * @param filename 读取文件位置
- * @return 返回原始数据
+ * @return 返回原始数据, 可能包含明文聚类结果也可能不
  */
 vector<vector<long long>> readData(string filename)
 {
@@ -54,8 +54,8 @@ vector<vector<long long>> readData(string filename)
  * @param pList1 秘密共享数据集1
  * @param pList2 秘密共享数据集2
  */
-vector<point*> data2Point(vector<vector<long long>>&dataList, vector<point*>&pList1, vector<point*>&pList2){
-    int n = dataList.size(), m = dataList[0].size();
+vector<point*> data2Point(vector<vector<long long>>&dataList, vector<point*>&pList1, vector<point*>&pList2, dataset &dt){
+    int n = dataList.size(), m = dt.dimension;
 
     pList1.resize(n);
     pList2.resize(n);
@@ -71,9 +71,9 @@ vector<point*> data2Point(vector<vector<long long>>&dataList, vector<point*>&pLi
         }
         long long t1, t2;
         secretShareLL(i+1, t1, t2);
-        pList1[i] = new point(v1, t1);
-        pList2[i] = new point(v2, t2);
-        pointList[i] = new point(dataList[i], i+1);
+        pList1[i] = new point(v1, t1, dataList[i].back());
+        pList2[i] = new point(v2, t2, dataList[i].back());
+        pointList[i] = new point(dataList[i], i+1, dataList[i].back());
     }
     return pointList;
 }
