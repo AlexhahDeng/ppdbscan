@@ -381,6 +381,7 @@ void alice(string &setname)
   endtime = clock();
   tottime = (double)(endtime - starttime) / CLOCKS_PER_SEC;
   cout << "total time of clustering:" << tottime * 1000 << "ms" << endl;
+
   writeCsv(pointList);
 }
 

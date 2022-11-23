@@ -1,4 +1,3 @@
-hell0!
-connected
-lsun
-part one: Initialization
+# 2022/11/22
+默认读取数据最后一个维度是正确的clu id
+如果没有这个信息，就不管，随他去
