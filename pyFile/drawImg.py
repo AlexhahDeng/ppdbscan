@@ -17,7 +17,7 @@ def extraNoise(datalist):
 setname = sys.argv[1]
 # 获取文件名
 prefix = strftime("%m-%d", localtime())
-filename = "/home/dd/Ubu20/ppdbscan/data/" +prefix+setname+".csv"
+filename = "/home/dd/Ubu20/ppdbscan/res/" +prefix+ "-" + setname+".csv"
 
 csv_reader = csv.reader(open(filename))
 datalist = []

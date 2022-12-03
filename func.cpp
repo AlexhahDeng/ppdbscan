@@ -162,14 +162,23 @@ map<int, int> liantongtu(vector<vector<int>> &mat)
   return mymap;
 }
 
-void writeCsv(vector<point *> &plist)
+void writeCsv(vector<point *> &plist, dataset set)
 {
   ofstream outFile;
-  outFile.open("../data/res.csv");
+  time_t t = time(0);
+  char tmp[32];
+  strftime(tmp, sizeof(tmp), "%m-%d", localtime(&t));
+  string prefix(tmp);
+  string filename = "/home/dd/Ubu20/ppdbscan/res/" + prefix + "-" + set.filename + ".csv";
+  outFile.open(filename);
   for (int i = 0; i < plist.size(); ++i)
   {
-    outFile << plist[i]->data[0] << "," << plist[i]->data[1] << "," << plist[i]->type << "," << plist[i]->resCluIdx
-            << endl;
+    for (int j = 0; j < set.dimension; ++j)
+    {
+      outFile << plist[i]->data[j] << ",";
+    }
+
+    outFile << plist[i]->type << "," << plist[i]->resCluIdx << endl;
   }
   outFile.close();
 }

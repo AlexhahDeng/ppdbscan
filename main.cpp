@@ -37,7 +37,9 @@ int bw_x = 64;
 
 clock_t starttime, endtime;
 
-dataset dataSetList[] = {{"../data/Lsun.csv", 200000000000, 4, "lsun", 2}, {"../data/s1.csv", 2250000000, 50, "s1", 2}};
+dataset dataSetList[] = {{"/home/dd/Ubu20/ppdbscan/data/Lsun.csv", 200000000000, 4, "lsun", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/s1.csv", 2250000000, 50, "s1", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/aggregation.csv", 35000, 3, "aggre", 2}};
 
 /**
  * @brief 判断d1>d2?
@@ -197,8 +199,8 @@ vector<point *> initialization(dataset dtset, cloudOne *c1, cloudTwo *c2)
   vector<point *> plnPointList;
 
   vector<vector<long long>> rawData = readData(dtset.filepath);
-  c1->dim = rawData[0].size();
-  c2->dim = rawData[0].size();
+  c1->dim = dtset.dimension;
+  c2->dim = dtset.dimension;
 
   plnPointList = data2Point(rawData, c1->plist, c2->plist, dtset);
   generateBeaverSet(c1->beaverlist, c2->beaverlist);
@@ -382,7 +384,7 @@ void alice(string &setname)
   tottime = (double)(endtime - starttime) / CLOCKS_PER_SEC;
   cout << "total time of clustering:" << tottime * 1000 << "ms" << endl;
 
-  writeCsv(pointList);
+  writeCsv(pointList, set);
 }
 
 /**
