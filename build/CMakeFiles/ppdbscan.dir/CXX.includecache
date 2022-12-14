@@ -358,10 +358,6 @@ utils/utils.hpp
 
 /home/dd/Ubu20/EzPC/SCI/build/install/include/utils/utils.hpp
 
-/home/dd/Ubu20/ppdbscan/cloud.cpp
-cloud.h
-/home/dd/Ubu20/ppdbscan/cloud.h
-
 /home/dd/Ubu20/ppdbscan/cloud.h
 iostream
 -
@@ -393,10 +389,6 @@ utils/emp-tool.h
 /home/dd/Ubu20/ppdbscan/utils/emp-tool.h
 limits
 -
-
-/home/dd/Ubu20/ppdbscan/func.cpp
-func.h
-/home/dd/Ubu20/ppdbscan/func.h
 
 /home/dd/Ubu20/ppdbscan/func.h
 iostream
