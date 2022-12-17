@@ -361,6 +361,12 @@ void alice(string &setname)
   dataset set = chooseDataset(setname);
   vector<point *> pointList = initialization(set, c1, c2);
 
+  for (int i = 0; i < c1->plist.size(); ++i)
+  {
+    cout << i << " " << c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint << " ";
+  }
+  return;
+
   cout << "part two: Clustering" << endl;
   clustering(c1, c2);
   endtime = clock();
