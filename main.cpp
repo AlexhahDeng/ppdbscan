@@ -271,16 +271,19 @@ void clustering(cloudOne *c1, cloudTwo *c2)
 
   for (int i = 0; i < num; ++i)
   {
-    // 更新isMark
+    //! 更新isMark
     // i.isMark = sc(i.isMark+i.isCorePoint, 0)
-    cmpres = cmp(vector<int>{c1->plist[i]->isMark + c2->plist[i]->isMark +
-                             c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint},
-                 vector<int>{0}, c1, c2);
+    // cmpres = cmp(vector<int>{c1->plist[i]->isMark + c2->plist[i]->isMark +
+    //                          c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint},
+    //              vector<int>{0}, c1, c2);
+    int imark = c1->plist[i]->isMark + c2->plist[i]->isMark;
+    int icore = c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint;
 
-    c1->plist[i]->isMark = cmpres[0].front();
-    c2->plist[i]->isMark = cmpres[1].front();
+    int tres = imark + icore - imark * icore;
+    c1->plist[i]->isMark = tres;
+    c2->plist[i]->isMark = 0;
 
-    vector<int> markInfo(num, 0);
+    // vector<int> markInfo(num, 0);
     for (int j = 0; j < num; ++j)
     {
       if (i == j)
@@ -300,19 +303,11 @@ void clustering(cloudOne *c1, cloudTwo *c2)
       c1->plist[j]->cluIdx += res[0];
       c2->plist[j]->cluIdx += res[1];
 
-      // 更新j的标记
-      // u[i,j]*i.isMark
-      res = mulAllVecElem(
-          c1, c2, vector<long long>{c1->distinfo[i][j], c1->plist[i]->isCorePoint},
-          vector<long long>{c2->distinfo[i][j], c2->plist[i]->isCorePoint});
+      int uij = c1->distinfo[i][j] + c2->distinfo[i][j];
+      int jmark = c1->plist[j]->isMark + c2->plist[j]->isMark;
 
-      markInfo[j] = res[0] + res[1] + c1->plist[j]->isMark + c2->plist[j]->isMark;
-    }
-
-    cmpres = cmp(markInfo, vector<int>(num, 0), c1, c2);
-    for (int j = 0; j < num; ++j)
-    {
-      c1->plist[j]->isMark = cmpres[0][j] + cmpres[1][j];
+      int tres = jmark + uij * icore - jmark * uij * icore;
+      c1->plist[j]->isMark = tres;
       c2->plist[j]->isMark = 0;
 
       // 标记是否相连的信息
