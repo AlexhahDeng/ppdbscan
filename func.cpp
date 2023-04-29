@@ -183,6 +183,26 @@ void writeCsv(vector<point *> &plist, dataset set)
   outFile.close();
 }
 
+void writeCsvIniCluId(vector<point *> &plist, dataset set)
+{
+  ofstream outFile;
+  time_t t = time(0);
+  char tmp[32];
+  strftime(tmp, sizeof(tmp), "%m-%d", localtime(&t));
+  string prefix(tmp);
+  string filename = "/home/dd/Ubu20/ppdbscan/res/" + prefix + "-" + set.filename + ".csv";
+  outFile.open(filename);
+  for (int i = 0; i < plist.size(); ++i)
+  {
+    for (int j = 0; j < set.dimension; ++j)
+    {
+      outFile << plist[i]->data[j] << ",";
+    }
+
+    outFile << plist[i]->type << "," << plist[i]->cluIdx << endl;
+  }
+  outFile.close();
+}
 // if x>y, return 1
 int plainCompare(long long x, long long y)
 {

@@ -6,12 +6,7 @@ from time import strftime, localtime
 
 # 预定义颜色
 colors = np.array(
-    ['g', 'r', 'c', 'm', 'y', 'k', 
-     '#2ecc71', '#ff7f50', '#2ed573', 
-     '#f0932b', '#82589f', '#7efff5',
-     '#ea5514', '#6a8d52','#12507b', '#e94829',
-     '#ddbb99', '#2c4f54', '#c3d825', '#cc7eb1', 
-     '#c9171e', '#ea5506'])
+    ['#b6a014','#80a492','#422517','#c12c1f','#a76283','#4f6f46','#c67915','#12264f','#422256','#cb5c83','#68945c','#e94829','#106898','#108b96','#ba79b1','#d12920','#d24735','#420b2f'])
 
 # 提取噪声点
 def extraNoise(datalist):
@@ -49,6 +44,7 @@ label = set(datanp[:, -1])
 # 创建映射
 label2color = {}
 count = 0
+label = sorted(label)
 for idx, val in enumerate(label):
     if val in noiseset:
         label2color[val] = 'black' # 噪声节点都用黑色标记

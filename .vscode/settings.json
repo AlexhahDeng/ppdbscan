@@ -3,7 +3,10 @@
         "vector": "cpp",
         "iostream": "cpp",
         "bitset": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "ostream": "cpp",
+        "chrono": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "cmake.sourceDirectory": "${workspaceFolder}/."
 }

@@ -39,7 +39,22 @@ clock_t starttime, endtime;
 
 dataset dataSetList[] = {{"/home/dd/Ubu20/ppdbscan/data/Lsun.csv", 200000000000, 4, "lsun", 2},
                          {"/home/dd/Ubu20/ppdbscan/data/s1.csv", 2250000000, 50, "s1", 2},
-                         {"/home/dd/Ubu20/ppdbscan/data/aggregation.csv", 35000, 3, "aggre", 2}};
+                         {"/home/dd/Ubu20/ppdbscan/data/aggregation.csv", 35000, 3, "aggre", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/lsun100.csv", 200000000000, 4, "lsun100", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/lsun200.csv", 200000000000, 4, "lsun200", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/lsun300.csv", 200000000000, 4, "lsun300", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/lsun400.csv", 200000000000, 4, "lsun400", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/lsun500.csv", 200000000000, 4, "lsun500", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/Lsun-1k.csv", 200000000000, 4, "lsun1k", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/Lsun-2k.csv", 200000000000, 4, "lsun2k", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/Lsun-3k.csv", 200000000000, 4, "lsun3k", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/Lsun-4k.csv", 200000000000, 4, "lsun3k", 2},
+                         {"/home/dd/Ubu20/ppdbscan/data/Lsun-5k.csv", 200000000000, 4, "lsun4k", 2}};
+
+using std::chrono::duration;
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
+using std::chrono::milliseconds;
 
 /**
  * @brief 判断d1>d2?
@@ -347,29 +362,21 @@ dataset chooseDataset(string setname)
  */
 void alice(string &setname)
 {
+  auto stime = high_resolution_clock::now();
 
   cloudOne *c1 = new cloudOne();
   cloudTwo *c2 = new cloudTwo();
-
-  starttime = clock();
-  cout << "part one: Initialization" << endl;
   dataset set = chooseDataset(setname);
   vector<point *> pointList = initialization(set, c1, c2);
 
-  // for (int i = 0; i < c1->plist.size(); ++i)
-  // {
-  //   cout << i << " " << c1->plist[i]->isCorePoint + c2->plist[i]->isCorePoint << " ";
-  // }
-  // return;
-
-  cout << "part two: Clustering" << endl;
   clustering(c1, c2);
-  endtime = clock();
-  double tottime = (double)(endtime - starttime) / CLOCKS_PER_SEC;
-  cout << "total time of clustering:" << tottime * 1000 << "ms" << endl;
+  // writeCsvIniCluId(pointList, set);
 
-  starttime = clock();
-  cout << "part three: obtain cluster res" << endl;
+  auto etime = high_resolution_clock::now();
+  duration<double, std::milli> ms_double = etime - stime;
+  cout << "time for clu:" << ms_double.count() << "ms" << endl;
+
+  stime = high_resolution_clock::now();
   map<int, int> mymap = getResult(c1, c2);
 
   int num = c1->plist.size();
@@ -381,9 +388,9 @@ void alice(string &setname)
     else
       pointList[i]->resCluIdx = cluidx;
   }
-  endtime = clock();
-  tottime = (double)(endtime - starttime) / CLOCKS_PER_SEC;
-  cout << "total time of clustering:" << tottime * 1000 << "ms" << endl;
+  etime = high_resolution_clock::now();
+  ms_double = etime - stime;
+  cout << "time for recover:" << ms_double.count() << "ms" << endl;
 
   writeCsv(pointList, set);
 }

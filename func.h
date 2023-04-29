@@ -37,3 +37,5 @@ int plainCompare(long long x, long long y);
 vector<long long> mulAllVecElem(cloudOne *c1, cloudTwo *c2, vector<long long> v1, vector<long long> v2);
 
 map<int, int> getResult(cloudOne *c1, cloudTwo *c2);
+
+void writeCsvIniCluId(vector<point *> &plist, dataset set);
